@@ -1,0 +1,36 @@
+name: wirehawk
+base: core24
+version: '2.0'
+summary: Per-device network traffic analyzer
+description: WireHawk is a professional network analyzer
+grade: stable
+confinement: classic
+website: https://github.com/arman-nadaf/WIREHAWK2.0
+source-code: https://github.com/arman-nadaf/WIREHAWK2.0
+issues: https://github.com/arman-nadaf/WIREHAWK2.0/issues
+apps:
+  wirehawk:
+    command: bin/wrapper-gui
+  wirehawk-cli:
+    command: bin/wrapper-cli
+parts:
+  wirehawk:
+    plugin: dump
+    source: .
+    stage-packages:
+      - python3
+      - python3-gi
+      - python3-psutil
+      - libpcap0.8
+      - gir1.2-gtk-3.0
+    override-build: |
+      craftctl default
+      mkdir -p $CRAFT_PART_INSTALL/bin
+      echo '#!/bin/sh
+      cd $SNAP
+      exec python3 -m wirehawk.gui "$@"' > $CRAFT_PART_INSTALL/bin/wrapper-gui
+      echo '#!/bin/sh
+      cd $SNAP
+      exec python3 -m wirehawk.cli "$@"' > $CRAFT_PART_INSTALL/bin/wrapper-cli
+      chmod +x $CRAFT_PART_INSTALL/bin/wrapper-*
+      pip3 install --target $CRAFT_PART_INSTALL/lib/python3.12/site-packages -r $CRAFT_PART_SRC/requirements.txt || true

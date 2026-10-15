@@ -1,0 +1,16 @@
+# Build folders - HUGE, should never be on GitHub
+WIREHAWK_PACKAGE/stage/
+WIREHAWK_PACKAGE/prime/
+WIREHAWK_PACKAGE/parts/
+WIREHAWK_PACKAGE/*.snap
+*.snap
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+*.egg-info/
+
+# OS
+.DS_Store
