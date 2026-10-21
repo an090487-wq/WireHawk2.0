@@ -162,7 +162,7 @@ def cmd_wifi(args):
 
     console = Console()
     if not args.json:
-        console.print("[bold bright_red]\\[*] Scanning for nearby Wi-Fi networks...[/bold bright_red]")
+        console.print("[bold bright_red]\\[*] Scanning for nearby Wi-Fi networks....[/bold bright_red]")
 
     networks = scan_wifi_networks(rescan=not args.no_rescan)
 
